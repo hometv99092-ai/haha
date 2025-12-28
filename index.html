@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movie & Game Drive</title>
+<title>SIAM Movie AI</title>
 <style>
 :root {
   --bg-color: #f1f5f9;
@@ -26,15 +26,14 @@ body.dark {
   --ai-bg: #1f2937;
   --ai-text: #fff;
 }
-
-body {
-  font-family: Arial, sans-serif;
-  background: var(--bg-color);
-  color: var(--text-color);
-  padding: 20px;
+body{
+  font-family:Arial;
+  background:var(--bg-color);
+  color:var(--text-color);
+  padding:15px;
   transition: all 0.3s;
 }
-h1{text-align:center;}
+h1{text-align:center;font-size:1.5rem;margin-bottom:15px;}
 .folder{
   background:var(--folder-bg);
   color:var(--folder-text);
@@ -43,43 +42,40 @@ h1{text-align:center;}
   border-radius:6px;
   cursor:pointer;
   display:none;
-  transition: all 0.3s;
 }
 .subfolder{display:none;margin-left:20px}
 .link{display:none;margin:6px 0}
 .payment-box{
   background:var(--payment-bg);
-  padding:15px;
+  padding:12px;
   border-radius:10px;
   text-align:center;
-  margin-bottom:20px;
-  transition: all 0.3s;
+  margin-bottom:15px;
 }
 button{
   background:var(--btn-bg);
   border:none;
   color:white;
-  padding:8px 14px;
+  padding:6px 12px;
   border-radius:6px;
   cursor:pointer;
-  transition: all 0.3s;
 }
-input{padding:8px;width:180px;}
-.show-pass-btn{background:#3b82f6;color:#fff;border:none;padding:8px;border-radius:6px;}
-a{text-decoration:none;font-weight:bold;color:inherit;}
-#searchBox{display:none;margin:15px 0;padding:8px;width:95%;}
+input{padding:6px;width:90%;margin-bottom:6px;border-radius:6px;border:1px solid #ccc;}
+.show-pass-btn{background:#3b82f6;color:#fff;border:none;padding:6px;border-radius:6px}
+a{text-decoration:none;font-weight:bold;color:inherit}
+#searchBox{display:none;margin:12px 0;padding:6px;width:95%;font-size:0.9rem;}
 
 /* AI Button */
 #aiBtn{
   position:fixed;
-  bottom:20px;
-  right:20px;
-  width:60px;
-  height:60px;
+  bottom:15px;
+  right:15px;
+  width:50px;
+  height:50px;
   border-radius:50%;
   background:var(--btn-bg);
   color:#fff;
-  font-size:18px;
+  font-size:16px;
   border:none;
   cursor:pointer;
   display:none;
@@ -89,69 +85,46 @@ a{text-decoration:none;font-weight:bold;color:inherit;}
 /* AI Box */
 #aiBox{
   position:fixed;
-  bottom:90px;
-  right:20px;
-  width:350px;
+  bottom:75px;
+  right:15px;
+  width:300px;
   max-width:95%;
-  max-height:480px;
   background:var(--ai-bg);
   color:var(--ai-text);
-  border-radius:12px;
-  padding:12px;
-  box-shadow:0 0 20px rgba(0,0,0,.25);
+  border-radius:10px;
+  padding:10px;
+  box-shadow:0 0 12px rgba(0,0,0,.25);
   display:none;
   z-index:999;
-  overflow:auto;
   transition: all 0.3s;
 }
 #aiBox input{
   width:100%;
-  margin-bottom:8px;
+  margin-bottom:5px;
   padding:6px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  outline:none;
+  font-size:0.95rem;
 }
-#aiResult{
-  font-size:14px;
-  overflow:auto;
+#aiBox #backBtn{
+  background:#6b7280;
+  width:100%;
+  margin-bottom:5px;
 }
-#aiResult img{
-  width:70px;
-  height:105px;
-  object-fit:cover;
-  border-radius:4px;
-  float:left;
-  margin-right:8px;
-  margin-bottom:6px;
-  cursor:pointer;
-}
-#aiResult div{
-  overflow:hidden;
-  margin-bottom:6px;
-  padding-bottom:6px;
-  border-bottom:1px solid #ddd;
-}
-
-/* Suggestions */
 #suggestions{
   display:none;
   max-height:180px;
   overflow:auto;
-  margin-bottom:8px;
-  border:1px solid #ccc;
-  border-radius:6px;
+  margin-top:5px;
 }
 .sug{
   display:flex;
-  gap:8px;
+  gap:6px;
   padding:6px;
   cursor:pointer;
-  align-items:center;
+  font-size:0.9rem;
 }
 .sug img{
-  width:38px;
-  height:56px;
+  width:40px;
+  height:60px;
   object-fit:cover;
   border-radius:4px;
 }
@@ -159,6 +132,23 @@ a{text-decoration:none;font-weight:bold;color:inherit;}
   background:#3b82f6;
   color:white;
 }
+#aiResult{
+  font-size:14px;
+  max-height:220px;
+  overflow:auto;
+  margin-top:5px;
+}
+#aiResult img{
+  width:65px;
+  height:95px;
+  object-fit:cover;
+  border-radius:6px;
+  float:left;
+  margin-right:6px;
+  margin-bottom:5px;
+  cursor:pointer;
+}
+#aiResult div{overflow:hidden;}
 
 /* Poster Modal */
 #posterModal{
@@ -176,29 +166,36 @@ a{text-decoration:none;font-weight:bold;color:inherit;}
 #posterModal img{
   max-width:90%;
   max-height:90%;
-  border-radius:10px;
+  border-radius:8px;
 }
 #posterModal span{
   position:absolute;
-  top:15px;
-  right:20px;
+  top:10px;
+  right:15px;
   color:white;
-  font-size:30px;
+  font-size:28px;
   cursor:pointer;
 }
 
 /* Theme button */
 #themeBtn{
   position:fixed;
-  top:20px;
-  right:20px;
-  padding:8px 12px;
+  top:15px;
+  right:15px;
+  padding:6px 10px;
   border:none;
   border-radius:6px;
   background:#6b7280;
   color:white;
   cursor:pointer;
   z-index:1000;
+}
+
+/* Responsive adjustments */
+@media(max-width:600px){
+  #aiBox{width:90%; bottom:70px; right:5%;}
+  #aiResult img{width:50px;height:75px;}
+  .sug img{width:35px;height:50px;}
 }
 </style>
 </head>
@@ -211,11 +208,9 @@ a{text-decoration:none;font-weight:bold;color:inherit;}
 <h3>🔐 সাবস্ক্রিপশন</h3>
 bKash / Nagad: 01775487928 <br>
 Amount: 5 টাকা <br><br>
-
 <input type="password" id="passInput" placeholder="পাসওয়ার্ড দিন">
 <button class="show-pass-btn" onclick="togglePassword()">👁</button><br><br>
 <button onclick="unlockAll()">Access</button>
-
 <hr>
 <h4>📧 পাসওয়ার্ড পেতে ইমেইল দিন</h4>
 <form id="emailForm">
@@ -225,7 +220,6 @@ Amount: 5 টাকা <br><br>
 </form>
 </div>
 
-<!-- Search bar -->
 <input type="text" id="searchBox" placeholder="🔍 Movie / Series খুঁজুন..." onkeyup="searchItem()">
 
 <!-- Movies -->
@@ -237,9 +231,10 @@ Amount: 5 টাকা <br><br>
   </div>
 </div>
 
-<!-- AI Button -->
+<!-- AI Button & Box -->
 <button id="aiBtn" onclick="toggleAI()">AI</button>
 <div id="aiBox">
+  <button id="backBtn" onclick="backToSearch()">⬅ Back</button>
   <input type="text" id="aiInput" placeholder="মুভির নাম লিখুন">
   <div id="suggestions"></div>
   <div id="aiResult"></div>
@@ -252,63 +247,102 @@ Amount: 5 টাকা <br><br>
 </div>
 
 <script>
-const PASSWORD = "SIAM2025";
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyVYLvydsrfz9xrxZ29QizJfDL6HhynrgI7M9tQ_teql6Yz7ZQ_5n_vbpRQs6g5AcER/exec";
-const OMDB_KEY = "ac57015f";
+const PASSWORD="SIAM2025";
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbwPjbtCW_ji6AXRjShZUCnjB3WBNgwDGOm_0QK_u-TGlwzTahNyq7YZT51HLnHxqx0row/exec";
+const OMDB_KEY="ac57015f";
 
-function toggle(id){ document.getElementById(id).style.display = document.getElementById(id).style.display==="block"?"none":"block"; }
+// Toggle subfolders
+function toggle(id){ let e=document.getElementById(id); e.style.display=e.style.display==="block"?"none":"block"; }
 
+// Unlock
 function unlockAll(){
-  if(passInput.value===PASSWORD){
-    localStorage.ok=1;
+  let p=document.getElementById("passInput").value;
+  if(p===PASSWORD){
+    localStorage.setItem("ok","1");
     document.querySelectorAll(".unlock").forEach(e=>e.style.display="block");
-    paymentBox.style.display="none";
-    searchBox.style.display="block";
-    aiBtn.style.display="block";
+    document.getElementById("paymentBox").style.display="none";
+    document.getElementById("searchBox").style.display="block";
+    document.getElementById("aiBtn").style.display="block";
     document.querySelectorAll(".folder").forEach(f=>f.style.display="block");
   }else alert("ভুল পাসওয়ার্ড");
 }
 
-if(localStorage.ok){
+// Auto unlock
+if(localStorage.getItem("ok")){
   document.querySelectorAll(".unlock").forEach(e=>e.style.display="block");
-  paymentBox.style.display="none";
-  searchBox.style.display="block";
-  aiBtn.style.display="block";
+  document.getElementById("paymentBox").style.display="none";
+  document.getElementById("searchBox").style.display="block";
+  document.getElementById("aiBtn").style.display="block";
   document.querySelectorAll(".folder").forEach(f=>f.style.display="block");
 }
 
-function togglePassword(){ passInput.type = passInput.type==="password"?"text":"password"; }
+// Password visibility
+function togglePassword(){ let i=document.getElementById("passInput"); i.type=i.type==="password"?"text":"password"; }
 
+// Search functionality
 function searchItem(){
-  let q=searchBox.value.toLowerCase();
-  document.querySelectorAll(".folder").forEach(item=>item.style.display=item.innerText.toLowerCase().includes(q)?"block":"none");
+  let q=document.getElementById("searchBox").value.toLowerCase();
+  document.querySelectorAll(".folder").forEach(item=>{
+    item.style.display=item.innerText.toLowerCase().includes(q)?"block":"none";
+  });
 }
 
+// Email submit
 document.getElementById("emailForm").onsubmit=function(e){
   e.preventDefault();
-  fetch(SCRIPT_URL,{method:"POST",body:new URLSearchParams({email:this.email.value})})
-  .then(()=>alert("ধন্যবাদ 🙏 আপনার ইমেইলে দ্রুত পাসওয়ার্ড পাঠানো হবে"))
-  .catch(()=>alert("সমস্যা হয়েছে, পরে চেষ্টা করুন"));
+  fetch(SCRIPT_URL,{
+    method:"POST",
+    body:new URLSearchParams({email:this.email.value})
+  })
+  .then(()=>{ alert("ধন্যবাদ 🙏 আপনার ইমেইলে দ্রুত পাসওয়ার্ড পাঠানো হবে"); })
+  .catch(()=>{ alert("সমস্যা হয়েছে, পরে চেষ্টা করুন"); });
   this.reset();
 };
 
-function toggleAI(){
+// AI Functions
+function toggleAI(){ 
   if(!localStorage.ok){ alert("আগে পাসওয়ার্ড দিন"); return; }
-  aiBox.style.display = aiBox.style.display==="block"?"none":"block";
+  let box=document.getElementById("aiBox");
+  box.style.display = box.style.display==="block"?"none":"block";
+  document.getElementById("aiInput").focus();
+}
+
+// Back Button
+function backToSearch(){
+  aiResult.innerHTML="";
+  suggestions.style.display="none";
+  aiInput.value="";
   aiInput.focus();
 }
 
-/* Auto-suggest + Google style */
-async function translateBN(text){ try{let r=await fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=bn&dt=t&q="+encodeURIComponent(text)); let d=await r.json(); return d[0].map(i=>i[0]).join(""); }catch(e){ return text;} }
+// Translate
+async function translateBN(text){
+  try{
+    let r = await fetch(
+      "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=bn&dt=t&q="+encodeURIComponent(text)
+    );
+    let d = await r.json();
+    return d[0].map(i=>i[0]).join("");
+  }catch(e){ return text; }
+}
+
+// Similarity for auto-suggest
+function score(a,b){ a=a.toLowerCase(); b=b.toLowerCase(); let m=0; for(let c of a) if(b.includes(c)) m++; return m/b.length; }
 
 let list=[];
+const aiInput = document.getElementById("aiInput");
+const suggestions = document.getElementById("suggestions");
+const aiResult = document.getElementById("aiResult");
+
 aiInput.oninput = async ()=>{
   let q = aiInput.value.trim();
   if(!q){ suggestions.style.display="none"; aiResult.innerHTML=""; return; }
-  let r=await fetch(`https://www.omdbapi.com/?s=${encodeURIComponent(q)}&apikey=${OMDB_KEY}`);
-  let d=await r.json();
-  if(d.Response==="False") return;
-  list=d.Search.map(x=>({...x,score:x.Title.toLowerCase().includes(q.toLowerCase())?1:0})).sort((a,b)=>b.score-a.score).slice(0,5);
+  let r = await fetch(`https://www.omdbapi.com/?s=${encodeURIComponent(q)}&apikey=${OMDB_KEY}`);
+  let d = await r.json();
+  if(d.Response==="False"){ suggestions.style.display="none"; return; }
+
+  list = d.Search.map(x=>({...x,s:score(q,x.Title)})).sort((a,b)=>b.s-a.s).slice(0,5);
+
   suggestions.innerHTML="";
   list.forEach(m=>{
     let div=document.createElement("div");
@@ -322,19 +356,32 @@ aiInput.oninput = async ()=>{
 
 async function loadMovie(id){
   aiResult.innerHTML="লোড হচ্ছে...";
-  let r=await fetch(`https://www.omdbapi.com/?i=${id}&apikey=${OMDB_KEY}`);
-  let d=await r.json();
-  let plotBN=await translateBN(d.Plot||"No plot available");
-  aiResult.innerHTML=`<img src="${d.Poster!=="N/A"?d.Poster:"https://via.placeholder.com/70x105"}" id="posterThumb"><div><b>${d.Title} (${d.Year})</b><br><b>🎭 অভিনেতা:</b> ${d.Actors}<br><b>📖 কাহিনি:</b><br>${plotBN}</div>`;
-  document.getElementById("posterThumb").onclick=function(){ modalImg.src=d.Poster!=="N/A"?d.Poster:"https://via.placeholder.com/300x450"; posterModal.style.display="flex"; }
-  suggestions.style.display="none"; aiInput.focus(); aiInput.select();
+  let r = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=${OMDB_KEY}`);
+  let d = await r.json();
+  let plotBN = await translateBN(d.Plot || "No plot available");
+
+  aiResult.innerHTML = `<img src="${d.Poster!=="N/A"?d.Poster:"https://via.placeholder.com/70x105"}" id="posterThumb"><div><b>${d.Title} (${d.Year})</b><br><b>🎭 অভিনেতা:</b> ${d.Actors}<br><b>📖 কাহিনি:</b><br>${plotBN}</div>`;
+
+  document.getElementById("posterThumb").onclick = function(){
+    document.getElementById("modalImg").src = d.Poster!=="N/A"?d.Poster:"https://via.placeholder.com/300x450";
+    document.getElementById("posterModal").style.display="flex";
+  }
+
+  suggestions.style.display="none";
+  aiInput.focus();
+  aiInput.select();
 }
 
-function closeModal(){ posterModal.style.display="none"; }
+// Poster Modal
+function closeModal(){ document.getElementById("posterModal").style.display="none"; }
 
-/* Theme */
+// Theme
+const themeBtn = document.getElementById("themeBtn");
 if(localStorage.theme==="dark") document.body.classList.add("dark");
-themeBtn.onclick=function(){ document.body.classList.toggle("dark"); localStorage.theme=document.body.classList.contains("dark")?"dark":"light"; }
+themeBtn.onclick = function(){
+  document.body.classList.toggle("dark");
+  localStorage.theme = document.body.classList.contains("dark")?"dark":"light";
+}
 </script>
 </body>
-</html>
+</html>    
