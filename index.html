@@ -1,9 +1,9 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>মুভি তথ্য সার্চ</title>
+<title>মুভি তথ্য সার্চ (বাংলা)</title>
 <style>
   body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
   h2 { color: #333; }
@@ -22,6 +22,17 @@
 <div id="result"></div>
 
 <script>
+async function translateToBangla(text) {
+  try {
+    const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=bn&dt=t&q=${encodeURIComponent(text)}`);
+    const data = await response.json();
+    return data[0].map(item => item[0]).join('');
+  } catch (err) {
+    console.error('Translation error:', err);
+    return text; // ব্যর্থ হলে ইংরেজি প্লট দেখাবে
+  }
+}
+
 async function searchMovie() {
   const name = document.getElementById('movieName').value.trim();
   if(!name) return alert('মুভির নাম লিখুন!');
@@ -39,14 +50,16 @@ async function searchMovie() {
       return;
     }
 
-    // Poster নেই হলে placeholder
     const poster = data.Poster && data.Poster !== "N/A" ? data.Poster : "https://via.placeholder.com/200x300?text=No+Image";
+
+    // প্লট বাংলায় অনুবাদ
+    const plotBN = await translateToBangla(data.Plot);
 
     resultDiv.innerHTML = `
       <img src="${poster}" alt="Poster">
       <h3>${data.Title} (${data.Year})</h3>
       <p><strong>অভিনেতা:</strong> ${data.Actors}</p>
-      <p><strong>প্লট:</strong> ${data.Plot}</p>
+      <p><strong>প্লট:</strong> ${plotBN}</p>
     `;
   } catch (err) {
     document.getElementById('result').innerHTML = 'ত্রুটি ঘটেছে। আবার চেষ্টা করুন।';
